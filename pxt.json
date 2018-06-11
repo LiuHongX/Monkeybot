@@ -18,6 +18,7 @@
         "ReceiverIR.h",
         "RemoteIR.h",
         "TransmitterIR.cpp",
-        "TransmitterIR.h"
+        "TransmitterIR.h",
+		"_locales/zh/monkeybot-strings.json"
     ]
 }
