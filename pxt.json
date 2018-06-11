@@ -1,0 +1,25 @@
+{
+    "name": "monkeybot",
+    "dependencies": {
+        "core": "*",
+        "radio": "*",
+		"neopixel": "github:microsoft/pxt-neopixel#v0.3.10"
+    },
+    "description": "",
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md",
+		"monkey_bot.ts",
+		"robotbitnopixel.ts",
+		"shims.d.ts",
+        "enums.d.ts",
+        "ir.cpp",
+        "ReceiverIR.cpp",
+        "ReceiverIR.h",
+        "RemoteIR.h",
+        "TransmitterIR.cpp",
+        "TransmitterIR.h",
+		"_locales/zh/monkeybot-strings.json"
+    ]
+}
