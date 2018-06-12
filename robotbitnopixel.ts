@@ -414,9 +414,9 @@ namespace monkeybot_电机驱动 {
         matrixShow();
     }
 
-    //% blockId=monkeybot_ultrasonic block="Ultrasonic|pin %pin"
+    //% blockId=monkeybot_Ultrasonic_RO block="Ultrasonic_RO|pin %pin"
     //% weight=10
-    export function Ultrasonic(pin: DigitalPin): number {
+    export function Ultrasonic_RO(pin: DigitalPin): number {
 
         // send pulse
         pins.setPull(pin, PinPullMode.PullNone);
