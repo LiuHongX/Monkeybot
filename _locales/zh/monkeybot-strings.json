@@ -30,7 +30,7 @@
 	"monkeybot_小车类.Servo_Car|block": "小车舵机|编号 %num|角度 %value",
 	"monkeybot_小车类.CarCtrl|block": "小车控制|%index",
 	"monkeybot_小车类.CarCtrlSpeed|block": "小车控制|%index|速度 %speed",
-	"monkeybot_小车类.CarCtrlSpeed2|block": "小车控制|%index|左电机速度 %speed1|右电机速度 %speed2"
+	"monkeybot_小车类.CarCtrlSpeed2|block": "小车控制|%index|左电机速度 %speed1|右电机速度 %speed2",
 	
 	"monkeybot_电机驱动.Servo|block": "舵机|%index|角度 %degree",
 	"monkeybot_电机驱动.StepperDegree|block": "步进 28BYJ-48|%index|角度 %degree",
