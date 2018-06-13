@@ -1108,6 +1108,11 @@ namespace monkeybot_小车类 {
     export function MotorStop(index: Motors): void {
         MotorRun(index, 0);
     }
+	
+	function stopMotor(index: number) {
+        setPwm((index - 1) * 2, 0, 0);
+        setPwm((index - 1) * 2 + 1, 0, 0);
+    }
 
     //% blockId=monkeybot_stop_all block="Motor Stop All"
     //% weight=79
