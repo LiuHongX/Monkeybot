@@ -432,7 +432,7 @@ namespace monkeybot_电机类 {
 //% color="#006400" weight=20 icon="\uf1b9"
 namespace monkeybot_小车类 {
 
-    const PCA9685_ADD = 0x41
+    const PCA9685_ADD = 0x01
     const MODE1 = 0x00
     const MODE2 = 0x01
     const SUBADR1 = 0x02
@@ -875,9 +875,9 @@ namespace monkeybot_小车类 {
         if (B > 4096)
             B = 4095;
 
-        setPwm(0, 0, R);
-        setPwm(1, 0, G);
-        setPwm(2, 0, B);
+        setPwm(13, 0, R);
+        setPwm(14, 0, G);
+        setPwm(15, 0, B);
 
     }
 
