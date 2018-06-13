@@ -197,7 +197,7 @@ namespace monkeybot_电机驱动 {
 	 * @param index Servo Channel; eg: S1
 	 * @param degree [0-180] degree of servo; eg: 0, 90, 180
 	*/
-    //% blockId=monkeybot_servo block="Servo|%index|degree %degree"
+    /*//% blockId=monkeybot_servo block="Servo|%index|degree %degree"
     //% weight=100
     //% blockGap=50
     //% degree.min=0 degree.max=180
@@ -210,7 +210,7 @@ namespace monkeybot_电机驱动 {
         let v_us = (degree * 1800 / 180 + 600) // 0.6 ~ 2.4
         let value = v_us * 4096 / 20000
         setPwm(index + 7, 0, value)
-    }
+    }*/
 
     //% blockId=monkeybot_stepper_degree block="Stepper 28BYJ-48|%index|degree %degree"
     //% weight=90
@@ -294,84 +294,7 @@ namespace monkeybot_电机驱动 {
         MotorStopAll()
     }
 
-    //% blockId=monkeybot_motor_run block="Motor|%index|speed %speed"
-    //% weight=85
-    //% speed.min=-255 speed.max=255
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function MotorRun(index: Motors, speed: number): void {
-        if (!initialized) {
-            initPCA9685()
-        }
-        speed = speed * 16; // map 255 to 4096
-        if (speed >= 4096) {
-            speed = 4095
-        }
-        if (speed <= -4096) {
-            speed = -4095
-        }
-        if (index > 4 || index <= 0)
-            return
-        let pp = (index - 1) * 2
-        let pn = (index - 1) * 2 + 1
-        if (speed >= 0) {
-            setPwm(pp, 0, speed)
-            setPwm(pn, 0, 0)
-        } else {
-            setPwm(pp, 0, 0)
-            setPwm(pn, 0, -speed)
-        }
-    }
 
-
-	/**
-	 * Execute two motors at the same time
-	 * @param motor1 First Motor; eg: M1A, M1B
-	 * @param speed1 [-255-255] speed of motor; eg: 150, -150
-	 * @param motor2 Second Motor; eg: M2A, M2B
-	 * @param speed2 [-255-255] speed of motor; eg: 150, -150
-	*/
-    //% blockId=monkeybot_motor_dual block="Motor|%motor1|speed %speed1|%motor2|speed %speed2"
-    //% weight=84
-    //% speed1.min=-255 speed1.max=255
-    //% speed2.min=-255 speed2.max=255
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function MotorRunDual(motor1: Motors, speed1: number, motor2: Motors, speed2: number): void {
-        MotorRun(motor1, speed1);
-        MotorRun(motor2, speed2);
-    }
-
-	/**
-	 * Execute single motors with delay
-	 * @param index Motor Index; eg: M1A, M1B, M2A, M2B
-	 * @param speed [-255-255] speed of motor; eg: 150, -150
-	 * @param delay seconde delay to stop; eg: 1
-	*/
-    //% blockId=monkeybot_motor_rundelay block="Motor|%index|speed %speed|delay %delay|s"
-    //% weight=81
-    //% speed.min=-255 speed.max=255
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function MotorRunDelay(index: Motors, speed: number, delay: number): void {
-        MotorRun(index, speed);
-        basic.pause(delay * 1000);
-        MotorRun(index, 0);
-    }
-
-
-
-    //% blockId=monkeybot_stop block="Motor Stop|%index|"
-    //% weight=80
-    export function MotorStop(index: Motors): void {
-        MotorRun(index, 0);
-    }
-
-    //% blockId=monkeybot_stop_all block="Motor Stop All"
-    //% weight=79
-    //% blockGap=50
-    export function MotorStopAll(): void {
-        for (let idx = 1; idx <= 4; idx++) {
-            stopMotor(idx);
-        }
-    }
 
     //% blockId=monkeybot_matrix_draw block="Matrix Draw|X %x|Y %y"
     //% weight=69

@@ -529,21 +529,13 @@ namespace monkeybot_小车类 {
         S2,
         S3
     }
-    export enum CarState {
-        //% blockId="Car_Run" block="前行"
-        Car_Run = 1,
-        //% blockId="Car_Back" block="后退"
-        Car_Back = 2,
-        //% blockId="Car_Left" block="左转"
-        Car_Left = 3,
-        //% blockId="Car_Right" block="右转"
-        Car_Right = 4,
-        //% blockId="Car_Stop" block="停止"
-        Car_Stop = 5,
-        //% blockId="Car_SpinLeft" block="原地左旋"
-        Car_SpinLeft = 6,
-        //% blockId="Car_SpinRight" block="原地右旋"
-        Car_SpinRight = 7
+    
+	
+	export enum Motors {
+        M1A = 0x1,
+        M1B = 0x2,
+        M2A = 0x3,
+        M2B = 0x4
     }
 
     function i2cwrite(addr: number, reg: number, value: number) {
@@ -951,11 +943,13 @@ namespace monkeybot_小车类 {
     //% num.min=1 num.max=3 value.min=0 value.max=180
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=9
     export function Servo_Car(num: enServo, value: number): void {
-
+		if (!initialized) {
+            initPCA9685()
+        }
         // 50hz: 20,000 us
         let us = (value * 1800 / 180 + 600); // 0.6 ~ 2.4
         let pwm = us * 4096 / 20000;
-        setPwm(num + 2, 0, pwm);
+        setPwm(num + 7, 0, pwm);
 
     }
 
@@ -1044,54 +1038,84 @@ namespace monkeybot_小车类 {
         return temp;
 
     }
-    //% blockId=monkeybot_CarCtrl block="CarCtrl|%index"
-    //% weight=93
-    //% blockGap=10
-    //% color="#006400"
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=10
-    export function CarCtrl(index: CarState): void {
-        switch (index) {
-            case CarState.Car_Run: Car_run(255, 255); break;
-            case CarState.Car_Back: Car_back(255, 255); break;
-            case CarState.Car_Left: Car_left(255, 255); break;
-            case CarState.Car_Right: Car_right(255, 255); break;
-            case CarState.Car_Stop: Car_stop(); break;
-            case CarState.Car_SpinLeft: Car_spinleft(255, 255); break;
-            case CarState.Car_SpinRight: Car_spinright(255, 255); break;
+	
+	//% blockId=monkeybot_motor_run block="Motor|%index|speed %speed"
+    //% weight=85
+    //% speed.min=-255 speed.max=255
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    export function MotorRun(index: Motors, speed: number): void {
+        if (!initialized) {
+            initPCA9685()
+        }
+        speed = speed * 16; // map 255 to 4096
+        if (speed >= 4096) {
+            speed = 4095
+        }
+        if (speed <= -4096) {
+            speed = -4095
+        }
+        if (index > 4 || index <= 0)
+            return
+        let pp = (index - 1) * 2
+        let pn = (index - 1) * 2 + 1
+        if (speed >= 0) {
+            setPwm(pp, 0, speed)
+            setPwm(pn, 0, 0)
+        } else {
+            setPwm(pp, 0, 0)
+            setPwm(pn, 0, -speed)
         }
     }
-    //% blockId=monkeybot_CarCtrlSpeed block="CarCtrlSpeed|%index|speed %speed"
-    //% weight=92
-    //% blockGap=10
-    //% speed.min=0 speed.max=255
-    //% color="#006400"
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=10
-    export function CarCtrlSpeed(index: CarState, speed: number): void {
-        switch (index) {
-            case CarState.Car_Run: Car_run(speed, speed); break;
-            case CarState.Car_Back: Car_back(speed, speed); break;
-            case CarState.Car_Left: Car_left(speed, speed); break;
-            case CarState.Car_Right: Car_right(speed, speed); break;
-            case CarState.Car_Stop: Car_stop(); break;
-            case CarState.Car_SpinLeft: Car_spinleft(speed, speed); break;
-            case CarState.Car_SpinRight: Car_spinright(speed, speed); break;
+
+
+	/**
+	 * Execute two motors at the same time
+	 * @param motor1 First Motor; eg: M1A, M1B
+	 * @param speed1 [-255-255] speed of motor; eg: 150, -150
+	 * @param motor2 Second Motor; eg: M2A, M2B
+	 * @param speed2 [-255-255] speed of motor; eg: 150, -150
+	*/
+    //% blockId=monkeybot_motor_dual block="Motor|%motor1|speed %speed1|%motor2|speed %speed2"
+    //% weight=84
+    //% speed1.min=-255 speed1.max=255
+    //% speed2.min=-255 speed2.max=255
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    export function MotorRunDual(motor1: Motors, speed1: number, motor2: Motors, speed2: number): void {
+        MotorRun(motor1, speed1);
+        MotorRun(motor2, speed2);
+    }
+
+	/**
+	 * Execute single motors with delay
+	 * @param index Motor Index; eg: M1A, M1B, M2A, M2B
+	 * @param speed [-255-255] speed of motor; eg: 150, -150
+	 * @param delay seconde delay to stop; eg: 1
+	*/
+    //% blockId=monkeybot_motor_rundelay block="Motor|%index|speed %speed|delay %delay|s"
+    //% weight=81
+    //% speed.min=-255 speed.max=255
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    export function MotorRunDelay(index: Motors, speed: number, delay: number): void {
+        MotorRun(index, speed);
+        basic.pause(delay * 1000);
+        MotorRun(index, 0);
+    }
+
+
+
+    //% blockId=monkeybot_stop block="Motor Stop|%index|"
+    //% weight=80
+    export function MotorStop(index: Motors): void {
+        MotorRun(index, 0);
+    }
+
+    //% blockId=monkeybot_stop_all block="Motor Stop All"
+    //% weight=79
+    //% blockGap=50
+    export function MotorStopAll(): void {
+        for (let idx = 1; idx <= 4; idx++) {
+            stopMotor(idx);
         }
     }
-    //% blockId=monkeybot_CarCtrlSpeed2 block="CarCtrlSpeed2|%index|speed1 %speed1|speed2 %speed2"
-    //% weight=91
-    //% blockGap=10
-    //% speed1.min=0 speed1.max=255 speed2.min=0 speed2.max=255
-    //% color="#006400"
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=10
-    export function CarCtrlSpeed2(index: CarState, speed1: number, speed2: number): void {
-        switch (index) {
-            case CarState.Car_Run: Car_run(speed1, speed2); break;
-            case CarState.Car_Back: Car_back(speed1, speed2); break;
-            case CarState.Car_Left: Car_left(speed1, speed2); break;
-            case CarState.Car_Right: Car_right(speed1, speed2); break;
-            case CarState.Car_Stop: Car_stop(); break;
-            case CarState.Car_SpinLeft: Car_spinleft(speed1, speed2); break;
-            case CarState.Car_SpinRight: Car_spinright(speed1, speed2); break;
-        }
-    }
+	
 }
