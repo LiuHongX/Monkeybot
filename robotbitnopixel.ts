@@ -221,7 +221,7 @@ namespace monkeybot_电机驱动 {
         setStepper(index, degree > 0);
         degree = Math.abs(degree);
         basic.pause(10240 * degree / 360);
-        MotorStopAll()
+        monkeybot_小车类.MotorStopAll()
     }
 
 
@@ -251,7 +251,7 @@ namespace monkeybot_电机驱动 {
             basic.pause(10240 * (degree2 - degree1) / 360);
         }
 
-        MotorStopAll()
+        monkeybot_小车类.MotorStopAll()
     }
 	
 	/**
@@ -270,7 +270,7 @@ namespace monkeybot_电机驱动 {
         setStepper(2, delay > 0);
 		delay = Math.abs(delay);
 		basic.pause(delay);
-        MotorStopAll()	
+        monkeybot_小车类.MotorStopAll()	
     }
 	
 	/**
@@ -291,7 +291,7 @@ namespace monkeybot_电机驱动 {
         setStepper(2, delay > 0);
 		delay = Math.abs(delay);
 		basic.pause(delay);
-        MotorStopAll()
+        monkeybot_小车类.MotorStopAll()
     }
 
 
