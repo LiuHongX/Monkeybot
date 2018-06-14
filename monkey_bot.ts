@@ -8,7 +8,63 @@ load dependency
 
 //% color="#C814B8" weight=25 icon="\uf1d4"
 namespace monkeybot_显示类 {
+	const HT16K33_ADDRESS = 0x70
+    const HT16K33_BLINK_CMD = 0x80
+    const HT16K33_BLINK_DISPLAYON = 0x01
+    const HT16K33_BLINK_OFF = 0
+    const HT16K33_BLINK_2HZ = 1
+    const HT16K33_BLINK_1HZ = 2
+    const HT16K33_BLINK_HALFHZ = 3
+    const HT16K33_CMD_BRIGHTNESS = 0xE0
 	
+	let initializedMatrix = false
+    let matBuf = pins.createBuffer(17);
+	
+	
+	function i2ccmd(addr: number, value: number) {
+        let buf = pins.createBuffer(1)
+        buf[0] = value
+        pins.i2cWriteBuffer(addr, buf)
+    }
+	
+	function matrixInit() {
+        i2ccmd(HT16K33_ADDRESS, 0x21);// turn on oscillator
+        i2ccmd(HT16K33_ADDRESS, HT16K33_BLINK_CMD | HT16K33_BLINK_DISPLAYON | (0 << 1));
+        i2ccmd(HT16K33_ADDRESS, HT16K33_CMD_BRIGHTNESS | 0xF);
+    }
+
+    function matrixShow() {
+        matBuf[0] = 0x00;
+        pins.i2cWriteBuffer(HT16K33_ADDRESS, matBuf);
+    }
+	
+	//% blockId=monkeybot_matrix_draw block="Matrix Draw|X %x|Y %y"
+    //% weight=69
+    export function MatrixDraw(x: number, y: number): void {
+        if (!initializedMatrix) {
+            matrixInit();
+            initializedMatrix = true;
+        }
+        let idx = y * 2 + x / 8;
+        matBuf[idx + 1] |= (1 << (x % 8));
+        matrixShow();
+    }
+
+	
+
+    //% blockId=monkeybot_matrix_clear block="Matrix Clear"
+    //% weight=65
+    //% blockGap=50
+    export function MatrixClear(): void {
+        if (!initializedMatrix) {
+            matrixInit();
+            initializedMatrix = true;
+        }
+        for (let i = 0; i < 16; i++) {
+            matBuf[i + 1] = 0;
+        }
+        matrixShow();
+    }
 }
 
 
@@ -264,6 +320,18 @@ namespace monkeybot_小车类 {
     const ALL_LED_OFF_H = 0xFD
 
     const PRESCALE = 0xFE
+	
+	const STP_CHA_L = 2047
+    const STP_CHA_H = 4095
+
+    const STP_CHB_L = 1
+    const STP_CHB_H = 2047
+
+    const STP_CHC_L = 1023
+    const STP_CHC_H = 3071
+
+    const STP_CHD_L = 3071
+    const STP_CHD_H = 1023
 
     let initialized = false
     let yahStrip: neopixel.Strip;
@@ -343,6 +411,11 @@ namespace monkeybot_小车类 {
         S2,
         S3
     }
+	
+	export enum Steppers {
+        M1 = 0x1,
+        M2 = 0x2
+    }
     
 	
 	export enum Motors {
@@ -391,6 +464,34 @@ namespace monkeybot_小车类 {
         i2cwrite(PCA9685_ADD, MODE1, oldmode);
         control.waitMicros(5000);
         i2cwrite(PCA9685_ADD, MODE1, oldmode | 0xa1);
+    }
+	
+	function setStepper(index: number, dir: boolean): void {
+        if (index == 1) {
+            if (dir) {
+                setPwm(0, STP_CHA_L, STP_CHA_H);
+                setPwm(2, STP_CHB_L, STP_CHB_H);
+                setPwm(1, STP_CHC_L, STP_CHC_H);
+                setPwm(3, STP_CHD_L, STP_CHD_H);
+            } else {
+                setPwm(3, STP_CHA_L, STP_CHA_H);
+                setPwm(1, STP_CHB_L, STP_CHB_H);
+                setPwm(2, STP_CHC_L, STP_CHC_H);
+                setPwm(0, STP_CHD_L, STP_CHD_H);
+            }
+        } else {
+            if (dir) {
+                setPwm(4, STP_CHA_L, STP_CHA_H);
+                setPwm(6, STP_CHB_L, STP_CHB_H);
+                setPwm(5, STP_CHC_L, STP_CHC_H);
+                setPwm(7, STP_CHD_L, STP_CHD_H);
+            } else {
+                setPwm(7, STP_CHA_L, STP_CHA_H);
+                setPwm(5, STP_CHB_L, STP_CHB_H);
+                setPwm(6, STP_CHC_L, STP_CHC_H);
+                setPwm(4, STP_CHD_L, STP_CHD_H);
+            }
+        }
     }
 
     function setPwm(channel: number, on: number, off: number): void {
@@ -599,6 +700,11 @@ namespace monkeybot_小车类 {
         //pins.analogWritePin(AnalogPin.P1, 1023-speed);
 
     }
+	
+	function stopMotor(index: number) {
+        setPwm((index - 1) * 2, 0, 0);
+        setPwm((index - 1) * 2 + 1, 0, 0);
+    }
 
     /**
      * *****************************************************************
@@ -687,7 +793,6 @@ namespace monkeybot_小车类 {
 
     }
 
-   
 
 
     //% blockId=monkeybot_Music_Car block="Music_Car|%index"
@@ -891,11 +996,6 @@ namespace monkeybot_小车类 {
     export function MotorStop(index: Motors): void {
         MotorRun(index, 0);
     }
-	
-	function stopMotor(index: number) {
-        setPwm((index - 1) * 2, 0, 0);
-        setPwm((index - 1) * 2 + 1, 0, 0);
-    }
 
     //% blockId=monkeybot_stop_all block="Motor Stop All"
     //% weight=79
@@ -904,6 +1004,88 @@ namespace monkeybot_小车类 {
         for (let idx = 1; idx <= 4; idx++) {
             stopMotor(idx);
         }
+    }
+	
+	//% blockId=monkeybot_stepper_degree block="Stepper 28BYJ-48|%index|degree %degree"
+    //% weight=90
+    export function StepperDegree(index: Steppers, degree: number): void {
+        if (!initialized) {
+            initPCA9685()
+        }
+        setStepper(index, degree > 0);
+        degree = Math.abs(degree);
+        basic.pause(10240 * degree / 360);
+        MotorStopAll()
+    }
+
+
+    //% blockId=monkeybot_stepper_turn block="Stepper 28BYJ-48|%index|turn %turn"
+    //% weight=90
+    export function StepperTurn(index: Steppers, turn: Turns): void {
+        let degree = turn;
+        StepperDegree(index, degree);
+    }
+
+    //% blockId=monkeybot_stepper_dual block="Dual Stepper(Degree) |M1 %degree1| M2 %degree2"
+    //% weight=89
+    export function StepperDual(degree1: number, degree2: number): void {
+        if (!initialized) {
+            initPCA9685()
+        }
+        setStepper(1, degree1 > 0);
+        setStepper(2, degree2 > 0);
+        degree1 = Math.abs(degree1);
+        degree2 = Math.abs(degree2);
+        basic.pause(10240 * Math.min(degree1, degree2) / 360);
+        if (degree1 > degree2) {
+            stopMotor(3); stopMotor(4);
+            basic.pause(10240 * (degree1 - degree2) / 360);
+        } else {
+            stopMotor(1); stopMotor(2);
+            basic.pause(10240 * (degree2 - degree1) / 360);
+        }
+
+        MotorStopAll()
+    }
+	
+	/**
+	 * Stepper Car move forward
+	 * @param distance Distance to move in cm; eg: 10, 20
+	 * @param diameter diameter of wheel in mm; eg: 48
+	*/
+	//% blockId=monkeybot_stpcar_move block="Car Forward|Diameter(cm) %distance|Wheel Diameter(mm) %diameter"
+    //% weight=88
+    export function StpCarMove(distance: number, diameter: number): void {
+		if (!initialized) {
+            initPCA9685()
+        }
+		let delay = 10240 * 10 * distance / 3 / diameter; // use 3 instead of pi
+		setStepper(1, delay > 0);
+        setStepper(2, delay > 0);
+		delay = Math.abs(delay);
+		basic.pause(delay);
+        MotorStopAll()	
+    }
+	
+	/**
+	 * Stepper Car turn by degree
+	 * @param turn Degree to turn; eg: 90, 180, 360
+	 * @param diameter diameter of wheel in mm; eg: 48
+	 * @param track track width of car; eg: 125
+	*/
+	//% blockId=monkeybot_stpcar_turn block="Car Turn|Degree %turn|Wheel Diameter(mm) %diameter|Track(mm) %track"
+    //% weight=87
+	//% blockGap=50
+    export function StpCarTurn(turn: number, diameter: number, track: number): void {
+		if (!initialized) {
+            initPCA9685()
+        }
+		let delay = 10240 * turn * track / 360 / diameter;
+		setStepper(1, delay < 0);
+        setStepper(2, delay > 0);
+		delay = Math.abs(delay);
+		basic.pause(delay);
+        MotorStopAll()
     }
 	
 }
