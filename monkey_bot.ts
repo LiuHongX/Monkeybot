@@ -982,7 +982,6 @@ namespace monkeybot_RGB灯 {
 		//% block="RGB (RGB format)"
 		RGB_RGB = 2
 	}
-    //% shim=sendBufferAsm
     //% parts="monkeybot_RGB灯"
     function sendBuffer(buf: Buffer, pin: DigitalPin) {
     }
