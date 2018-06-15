@@ -2,10 +2,6 @@
 	
 	
 
-	"monkeybot_传感器类.Voice_Sensor|block": "声音传感器|引脚 %pin|返回 %value",
-	"monkeybot_传感器类.IR_Sensor|block": "红外传感器|引脚 %pin|  |%value|障碍物",
-	"monkeybot_传感器类.IR_Send|block": "红外发射|引脚 %pin",
-	
 	"monkeybot_输入类.Ultrasonic|block": "超声波|发射管脚 %Trig|接收管脚 %Echo",
 	"monkeybot_输入类.Ultrasonic_Car|block": "超声波返回（cm）",
 	"monkeybot_输入类.TouchPad|block": "触摸开关|引脚 %pin|返回 %value",
