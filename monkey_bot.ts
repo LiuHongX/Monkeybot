@@ -650,7 +650,7 @@ namespace monkeybot_电机类 {
     //% blockId=monkeybot_RGB_Car_Big2 block="RGB_Car_Big2|value %value"
     //% weight=101
     //% blockGap=10
-    //% color="#C814B8"
+    //% color="#006400"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     export function RGB_Car_Big2(value: enColor): void {
 
@@ -708,7 +708,7 @@ namespace monkeybot_电机类 {
     //% blockId=monkeybot_RGB_Car_Big block="RGB_Car_Big|value1 %value1|value2 %value2|value3 %value3"
     //% weight=100
     //% blockGap=10
-    //% color="#C814B8"
+    //% color="#006400"
     //% value1.min=0 value1.max=255 value2.min=0 value2.max=255 value3.min=0 value3.max=255
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     export function RGB_Car_Big(value1: number, value2: number, value3: number): void {
@@ -778,93 +778,7 @@ namespace monkeybot_电机类 {
 
     }
 
-    //% blockId=monkeybot_Avoid_Sensor block="Avoid_Sensor|value %value"
-    //% weight=95
-    //% blockGap=10
-    //% color="#006400"
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=12
-    export function Avoid_Sensor(value: enAvoidState): boolean {
-
-        let temp: boolean = false;
-        pins.digitalWritePin(DigitalPin.P9, 0);
-        switch (value) {
-            case enAvoidState.OBSTACLE: {
-                if (pins.analogReadPin(AnalogPin.P3) < 800) {
-                
-                    temp = true;
-                    setPwm(8, 0, 0);
-                }
-                else {                 
-                    temp = false;
-                    setPwm(8, 0, 4095);
-                }
-                break;
-            }
-
-            case enAvoidState.NOOBSTACLE: {
-                if (pins.analogReadPin(AnalogPin.P3) > 800) {
-
-                    temp = true;
-                    setPwm(8, 0, 4095);
-                }
-                else {
-                    temp = false;
-                    setPwm(8, 0, 0);
-                }
-                break;
-            }
-        }
-        pins.digitalWritePin(DigitalPin.P9, 1);
-        return temp;
-
-    }
-    //% blockId=monkeybot_Line_Sensor block="Line_Sensor|direct %direct|value %value"
-    //% weight=94
-    //% blockGap=10
-    //% color="#006400"
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=12
-    export function Line_Sensor(direct: enPos, value: enLineState): boolean {
-
-        let temp: boolean = false;
-
-        switch (direct) {
-            case enPos.LeftState: {
-                if (pins.analogReadPin(AnalogPin.P2) < 500) {
-                    if (value == enLineState.White) {
-                        temp = true;
-                    }
-                    setPwm(7, 0, 4095);
-                }
-                else {
-                    if (value == enLineState.Black) {
-                        temp = true;
-                    }
-                    setPwm(7, 0, 0);
-                }
-                break;
-            }
-
-            case enPos.RightState: {
-                if (pins.analogReadPin(AnalogPin.P1) < 500) {
-                    if (value == enLineState.White) {
-                        temp = true;
-                    }
-                    setPwm(6, 0, 4095);
-                }
-                else {
-                    if (value == enLineState.Black) {
-                        temp = true;
-                    }
-                    setPwm(6, 0, 0);
-                }
-                break;
-            }
-        }
-        return temp;
-
-    }
-	
-	//% blockId=monkeybot_motor_run block="Motor|%index|speed %speed"
+    //% blockId=monkeybot_motor_run block="Motor|%index|speed %speed"
     //% weight=85
     //% speed.min=-255 speed.max=255
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
@@ -944,7 +858,7 @@ namespace monkeybot_电机类 {
     }
 	
 	//% blockId=monkeybot_stepper_degree block="Stepper 28BYJ-48|%index|degree %degree"
-    //% weight=90
+    //% weight=78
     export function StepperDegree(index: Steppers, degree: number): void {
         if (!initialized) {
             initPCA9685()
@@ -957,14 +871,14 @@ namespace monkeybot_电机类 {
 
 
     //% blockId=monkeybot_stepper_turn block="Stepper 28BYJ-48|%index|turn %turn"
-    //% weight=90
+    //% weight=77
     export function StepperTurn(index: Steppers, turn: Turns): void {
         let degree = turn;
         StepperDegree(index, degree);
     }
 
     //% blockId=monkeybot_stepper_dual block="Dual Stepper(Degree) |M1 %degree1| M2 %degree2"
-    //% weight=89
+    //% weight=76
     export function StepperDual(degree1: number, degree2: number): void {
         if (!initialized) {
             initPCA9685()
@@ -991,7 +905,7 @@ namespace monkeybot_电机类 {
 	 * @param diameter diameter of wheel in mm; eg: 48
 	*/
 	//% blockId=monkeybot_stpcar_move block="Car Forward|Diameter(cm) %distance|Wheel Diameter(mm) %diameter"
-    //% weight=88
+    //% weight=75
     export function StpCarMove(distance: number, diameter: number): void {
 		if (!initialized) {
             initPCA9685()
@@ -1011,7 +925,7 @@ namespace monkeybot_电机类 {
 	 * @param track track width of car; eg: 125
 	*/
 	//% blockId=monkeybot_stpcar_turn block="Car Turn|Degree %turn|Wheel Diameter(mm) %diameter|Track(mm) %track"
-    //% weight=87
+    //% weight=74
 	//% blockGap=50
     export function StpCarTurn(turn: number, diameter: number, track: number): void {
 		if (!initialized) {
