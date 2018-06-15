@@ -950,7 +950,7 @@ namespace monkeybot_RGB灯 {
 	/**
 	 * Well known colors for a monkeybot_RGB灯 strip
 	 */
-	export enum neopixel_colors {
+	export enum NeoPixelColors {
 		//% block=red
 		Red = 0xFF0000,
 		//% block=orange
@@ -1003,7 +1003,7 @@ namespace monkeybot_RGB灯 {
          * Shows all LEDs to a given color (range 0-255 for r, g, b). 
          * @param rgb RGB color of the LED
          */
-        //% blockId="monkeybot_set_strip_color" block="%strip|show color %rgb=neopixel_colors" 
+        //% blockId="monkeybot_set_strip_color" block="%strip|show color %rgb" 
         //% weight=85 blockGap=8
         //% parts="monkeybot_RGB灯"
         showColor(rgb: number) {
@@ -1074,7 +1074,7 @@ namespace monkeybot_RGB灯 {
          * @param pixeloffset position of the monkeybot_RGB灯 in the strip
          * @param rgb RGB color of the LED
          */
-        //% blockId="monkeybot_set_pixel_color" block="%strip|set pixel color at %pixeloffset|to %rgb=neopixel_colors" 
+        //% blockId="monkeybot_set_pixel_color" block="%strip|set pixel color at %pixeloffset|to %rgb" 
         //% blockGap=8
         //% weight=80
         //% parts="monkeybot_RGB灯" advanced=true
