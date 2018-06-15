@@ -941,7 +941,6 @@ namespace monkeybot_电机类 {
 	
 }
 
-
 /**
  * Functions to operate Monkeybot_RGB灯 strips.
  */
@@ -950,7 +949,7 @@ namespace Monkeybot_RGB灯 {
 	/**
 	 * Well known colors for a Monkeybot_RGB灯 strip
 	 */
-	enum NeoPixelColors {
+	export enum NeoPixelColors {
 		//% block=red
 		Red = 0xFF0000,
 		//% block=orange
@@ -974,7 +973,7 @@ namespace Monkeybot_RGB灯 {
 	/**
 	 * Different modes for RGB or RGB+W Monkeybot_RGB灯 strips
 	 */
-	enum NeoPixelMode {
+	export enum NeoPixelMode {
 		//% block="RGB (GRB format)"
 		RGB = 0,
 		//% block="RGB+W"
@@ -984,7 +983,7 @@ namespace Monkeybot_RGB灯 {
 	}
     //% shim=sendBufferAsm
     //% parts="Monkeybot_RGB灯"
-    function sendBuffer(buf: Buffer, pin: DigitalPin) {
+    export function sendBuffer(buf: Buffer, pin: DigitalPin) {
     }
 
     /**
@@ -1006,7 +1005,7 @@ namespace Monkeybot_RGB灯 {
         //% blockId="monkeybot_set_strip_color" block="%strip|show color %rgb=neopixel_colors" 
         //% weight=85 blockGap=8
         //% parts="Monkeybot_RGB灯"
-        showColor(rgb: number) {
+        export showColor(rgb: number) {
             this.setAllRGB(rgb);
             this.show();
         }
@@ -1019,7 +1018,7 @@ namespace Monkeybot_RGB灯 {
         //% blockId="monkeybot_set_strip_rainbow" block="%strip|show rainbow from %startHue|to %endHue" 
         //% weight=85 blockGap=8
         //% parts="Monkeybot_RGB灯"
-        showRainbow(startHue: number = 1, endHue: number = 360) {
+        export showRainbow(startHue: number = 1, endHue: number = 360) {
             let start = Monkeybot_RGB灯.hsl(startHue, 100, 50);
             let end = Monkeybot_RGB灯.hsl(endHue, 100, 50);
             let colors = Monkeybot_RGB灯.interpolateHSL(start, end, this._length, HueInterpolationDirection.Clockwise);
@@ -1040,7 +1039,7 @@ namespace Monkeybot_RGB灯 {
         //% weight=84
         //% blockId=monkeybot_show_bar_graph block="%strip|show bar graph of %value |up to %high" icon="\uf080" blockExternalInputs=true
         //% parts="Monkeybot_RGB灯"
-        showBarGraph(value: number, high: number): void {
+        export showBarGraph(value: number, high: number): void {
             if (high <= 0) {
                 this.clear();
                 this.setPixelColor(0, NeoPixelColors.Yellow);
@@ -1078,7 +1077,7 @@ namespace Monkeybot_RGB灯 {
         //% blockGap=8
         //% weight=80
         //% parts="Monkeybot_RGB灯" advanced=true
-        setPixelColor(pixeloffset: number, rgb: number): void {
+        export setPixelColor(pixeloffset: number, rgb: number): void {
             this.setPixelRGB(pixeloffset, rgb);
         }
 
@@ -1091,7 +1090,7 @@ namespace Monkeybot_RGB灯 {
         //% blockGap=8
         //% weight=80
         //% parts="Monkeybot_RGB灯" advanced=true
-        setPixelWhiteLED(pixeloffset: number, white: number): void {
+        export setPixelWhiteLED(pixeloffset: number, white: number): void {
             if (this._mode === NeoPixelMode.RGBW) {
                 this.setPixelW(pixeloffset, white);
             }
@@ -1103,7 +1102,7 @@ namespace Monkeybot_RGB灯 {
         //% blockId="monkeybot_show" block="%strip|show" blockGap=8
         //% weight=79
         //% parts="Monkeybot_RGB灯"
-        show() {
+        export show() {
             sendBuffer(this.buf, this.pin);
         }
 
@@ -1114,7 +1113,7 @@ namespace Monkeybot_RGB灯 {
         //% blockId="monkeybot_clear" block="%strip|clear"
         //% weight=76
         //% parts="Monkeybot_RGB灯"
-        clear(): void {
+        export clear(): void {
             const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
             this.buf.fill(0, this.start * stride, this._length * stride);
         }
@@ -1124,7 +1123,7 @@ namespace Monkeybot_RGB灯 {
          */
         //% blockId="monkeybot_length" block="%strip|length" blockGap=8
         //% weight=60 advanced=true
-        length() {
+        export length() {
             return this._length;
         }
 
@@ -1135,7 +1134,7 @@ namespace Monkeybot_RGB灯 {
         //% blockId="monkeybot_set_brightness" block="%strip|set brightness %brightness" blockGap=8
         //% weight=59
         //% parts="Monkeybot_RGB灯" advanced=true
-        setBrightness(brightness: number): void {
+        export setBrightness(brightness: number): void {
             this.brightness = brightness & 0xff;
         }
 
@@ -1145,7 +1144,7 @@ namespace Monkeybot_RGB灯 {
         //% blockId="monkeybot_each_brightness" block="%strip|ease brightness" blockGap=8
         //% weight=58
         //% parts="Monkeybot_RGB灯" advanced=true
-        easeBrightness(): void {
+        export easeBrightness(): void {
             const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
             const br = this.brightness;
             const buf = this.buf;
@@ -1173,7 +1172,7 @@ namespace Monkeybot_RGB灯 {
         //% weight=89
         //% blockId="monkeybot_range" block="%strip|range from %start|with %length|leds"
         //% parts="Monkeybot_RGB灯"
-        range(start: number, length: number): Strip {
+        export range(start: number, length: number): Strip {
             let strip = new Strip();
             strip.buf = this.buf;
             strip.pin = this.pin;
@@ -1191,7 +1190,7 @@ namespace Monkeybot_RGB灯 {
         //% blockId="monkeybot_shift" block="%strip|shift pixels by %offset" blockGap=8
         //% weight=40
         //% parts="Monkeybot_RGB灯"
-        shift(offset: number = 1): void {
+        export shift(offset: number = 1): void {
             const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
             this.buf.shift(-offset * stride, this.start * stride, this._length * stride)
         }
@@ -1204,7 +1203,7 @@ namespace Monkeybot_RGB灯 {
         //% blockId="monkeybot_rotate" block="%strip|rotate pixels by %offset" blockGap=8
         //% weight=39
         //% parts="Monkeybot_RGB灯"
-        rotate(offset: number = 1): void {
+        export rotate(offset: number = 1): void {
             const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
             this.buf.rotate(-offset * stride, this.start * stride, this._length * stride)
         }
@@ -1214,7 +1213,7 @@ namespace Monkeybot_RGB灯 {
          */
         //% weight=10
         //% parts="Monkeybot_RGB灯" advanced=true
-        setPin(pin: DigitalPin): void {
+        export setPin(pin: DigitalPin): void {
             this.pin = pin;
             pins.digitalWritePin(this.pin, 0);
             // don't yield to avoid races on initialization
@@ -1225,7 +1224,7 @@ namespace Monkeybot_RGB灯 {
          */
         //% weight=9 blockId=monkeybot_power block="%strip|power (mA)"
         //% advanced=true
-        power(): number {
+        export power(): number {
             const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
             const end = this.start + this._length;
             let p = 0;
@@ -1402,7 +1401,7 @@ namespace Monkeybot_RGB灯 {
         //% weight=1
         //% blockId="monkeybot_rotate_hue" block="shift %hsl| hue by %offset"
         //% advanced=true
-        rotateHue(offset: number): void {
+        export rotateHue(offset: number): void {
             this.h = (this.h + offset) % 360;
         }
 
@@ -1414,7 +1413,7 @@ namespace Monkeybot_RGB灯 {
         //% weight=2 blockGap=8
         //% blockId="monkeybot_hsl_to_rgb" block="%hsl| to RGB"
         //% advanced=true
-        toRGB(): number {
+        export toRGB(): number {
             //reference: https://en.wikipedia.org/wiki/HSL_and_HSV#From_HSL
             let h = this.h;
             let s = this.s;
