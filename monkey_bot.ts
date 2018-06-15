@@ -101,7 +101,7 @@ namespace monkeybot_输入类 {
 
 	//% blockId=monkeybot_ultrasonic_car block="ultrasonic return distance(cm)"
     //% color="#0fbc11"
-    //% weight=98
+    //% weight=100
     //% blockGap=10
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     export function Ultrasonic_Car(): number {
@@ -120,7 +120,7 @@ namespace monkeybot_输入类 {
     }
 	//% blockId=monkeybot_ultrasonic block="Ultrasonic|Trig %Trig|Echo %Echo"
     //% color="#0fbc11"
-    //% weight=100
+    //% weight=99
     //% blockGap=10
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     export function Ultrasonic(Trig: DigitalPin, Echo: DigitalPin): number {
@@ -140,7 +140,7 @@ namespace monkeybot_输入类 {
 	
 	
     //% blockId=monkeybot_TouchPad block="TouchPad|pin %pin|value %value"
-    //% weight=100
+    //% weight=98
     //% blockGap=10
     //% color="#0fbc11"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
@@ -156,7 +156,7 @@ namespace monkeybot_输入类 {
 
     }
     //% blockId=monkeybot_Rocker block="Rocker|VRX %pin1|VRY %pin2|SW %pin3|value %value"
-    //% weight=100
+    //% weight=98
     //% blockGap=10
     //% color="#0fbc11"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=6
@@ -200,7 +200,7 @@ namespace monkeybot_输入类 {
     }
 
     //% blockId=monkeybot_Button block="Button|pin %pin|value %value"
-    //% weight=100
+    //% weight=98
     //% blockGap=10
     //% color="#0fbc11"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
