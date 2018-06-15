@@ -950,7 +950,7 @@ namespace Monkeybot_RGB灯 {
 	/**
 	 * Well known colors for a Monkeybot_RGB灯 strip
 	 */
-	enum NeoPixelColors {
+	export enum NeoPixelColors {
 		//% block=red
 		Red = 0xFF0000,
 		//% block=orange
@@ -974,7 +974,7 @@ namespace Monkeybot_RGB灯 {
 	/**
 	 * Different modes for RGB or RGB+W Monkeybot_RGB灯 strips
 	 */
-	enum NeoPixelMode {
+	export enum NeoPixelMode {
 		//% block="RGB (GRB format)"
 		RGB = 0,
 		//% block="RGB+W"
