@@ -70,7 +70,7 @@ namespace monkeybot_显示类 {
 
 //% color="#0fbc11" weight=23 icon="\uf11c"
 namespace monkeybot_输入类 {
-	
+
     export enum enRocker {
         //% blockId="Nostate" block="无"
         Nostate = 0,
@@ -138,7 +138,7 @@ namespace monkeybot_输入类 {
         let d = pins.pulseIn(DigitalPin.P15, PulseValue.High, 43200);
         return d / 58;
     }
-
+	
     //% blockId=monkeybot_TouchPad block="TouchPad|pin %pin|value %value"
     //% weight=100
     //% blockGap=10
@@ -216,89 +216,8 @@ namespace monkeybot_输入类 {
 
     }  
 	
-	
 }
 
-
-/*****************************************************************************************************************************************
- *  传感器类 ***************************************************************************************************************************** 
- ****************************************************************************************************************************************/
-/*
-//% color="#87CEEB" weight=24 icon="\uf1b6"
-namespace monkeybot_传感器类 {
-
-    export enum enVoice {
-        //% blockId="Voice" block="有声音"
-        Voice = 0,
-        //% blockId="NoVoice" block="无声音"
-        NoVoice = 1
-    }
-
-    export enum enIR {
-        //% blockId="Get" block="检测到"
-        Get = 0,
-        //% blockId="NoVoice" block="未检测"
-        NoGet = 1
-    }
-    
-
-    //% blockId=monkeybot_Voice_Sensor block="Voice_Sensor|pin %pin|value %value"
-    //% weight=100
-    //% blockGap=10
-    //% color="#87CEEB"
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function Voice_Sensor(pin: DigitalPin, value: enVoice): boolean {
-
-        pins.setPull(pin, PinPullMode.PullUp);
-        if (pins.digitalReadPin(pin) == value) {
-            return true;
-        }
-        else {
-            return false;
-        }
-
-    }
-
-    function IR_send_38k() {
-        for (let i: number = 0; i < 8; i++) {
-            pins.digitalWritePin(DigitalPin.P9, 1);
-            control.waitMicros(13);
-            pins.digitalWritePin(DigitalPin.P9, 0);
-            control.waitMicros(13);
-        }
-    }
-    //% blockId=monkeybot_IR_Sensor block="IR_Sensor|pin %pin| |%value|障碍物"
-    //% weight=100
-    //% blockGap=10
-    //% color="#87CEEB"
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function IR_Sensor(pin: DigitalPin, value: enIR): boolean {
-
-        pins.setPull(pin, PinPullMode.PullUp);
-        //IR_send_38k();
-        if (pins.digitalReadPin(pin) == value) {
-            return true;
-        }
-        else {
-            return false;
-        }
-
-    }
-
-    //% blockId=monkeybot_IR_Send block="IR_Send|pin %pin"
-    //% weight=100
-    //% blockGap=10
-    //% color="#87CEEB"
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function IR_Send(pin: DigitalPin): void {
-
-        
-        IR_send_38k();
-
-    }
-  
-}
-*/
 
 //% color="#006400" weight=20 icon="\uf1b9"
 namespace monkeybot_电机类 {
