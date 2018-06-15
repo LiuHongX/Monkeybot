@@ -943,14 +943,14 @@ namespace monkeybot_电机类 {
 
 
 /**
- * Functions to operate Monkeybot_RGB灯 strips.
+ * Functions to operate monkeybot_RGB灯 strips.
  */
 //% weight=5 color=#2699BF icon="\uf110"
-namespace Monkeybot_RGB灯 {
+namespace monkeybot_RGB灯 {
 	/**
-	 * Well known colors for a Monkeybot_RGB灯 strip
+	 * Well known colors for a monkeybot_RGB灯 strip
 	 */
-	export enum NeoPixelColors {
+	export enum neopixel_colors {
 		//% block=red
 		Red = 0xFF0000,
 		//% block=orange
@@ -972,7 +972,7 @@ namespace Monkeybot_RGB灯 {
 	}
 
 	/**
-	 * Different modes for RGB or RGB+W Monkeybot_RGB灯 strips
+	 * Different modes for RGB or RGB+W monkeybot_RGB灯 strips
 	 */
 	export enum NeoPixelMode {
 		//% block="RGB (GRB format)"
@@ -983,12 +983,12 @@ namespace Monkeybot_RGB灯 {
 		RGB_RGB = 2
 	}
     //% shim=sendBufferAsm
-    //% parts="Monkeybot_RGB灯"
+    //% parts="monkeybot_RGB灯"
     function sendBuffer(buf: Buffer, pin: DigitalPin) {
     }
 
     /**
-     * A Monkeybot_RGB灯 strip
+     * A monkeybot_RGB灯 strip
      */
     export class Strip {
         buf: Buffer;
@@ -1005,7 +1005,7 @@ namespace Monkeybot_RGB灯 {
          */
         //% blockId="monkeybot_set_strip_color" block="%strip|show color %rgb=neopixel_colors" 
         //% weight=85 blockGap=8
-        //% parts="Monkeybot_RGB灯"
+        //% parts="monkeybot_RGB灯"
         showColor(rgb: number) {
             this.setAllRGB(rgb);
             this.show();
@@ -1018,11 +1018,11 @@ namespace Monkeybot_RGB灯 {
          */
         //% blockId="monkeybot_set_strip_rainbow" block="%strip|show rainbow from %startHue|to %endHue" 
         //% weight=85 blockGap=8
-        //% parts="Monkeybot_RGB灯"
+        //% parts="monkeybot_RGB灯"
         showRainbow(startHue: number = 1, endHue: number = 360) {
-            let start = Monkeybot_RGB灯.hsl(startHue, 100, 50);
-            let end = Monkeybot_RGB灯.hsl(endHue, 100, 50);
-            let colors = Monkeybot_RGB灯.interpolateHSL(start, end, this._length, HueInterpolationDirection.Clockwise);
+            let start = monkeybot_RGB灯.hsl(startHue, 100, 50);
+            let end = monkeybot_RGB灯.hsl(endHue, 100, 50);
+            let colors = monkeybot_RGB灯.interpolateHSL(start, end, this._length, HueInterpolationDirection.Clockwise);
             for (let i = 0; i < colors.length; i++) {
                 let hsl = colors[i];
                 let rgb = hsl.toRGB();
@@ -1039,7 +1039,7 @@ namespace Monkeybot_RGB灯 {
          */
         //% weight=84
         //% blockId=monkeybot_show_bar_graph block="%strip|show bar graph of %value |up to %high" icon="\uf080" blockExternalInputs=true
-        //% parts="Monkeybot_RGB灯"
+        //% parts="monkeybot_RGB灯"
         showBarGraph(value: number, high: number): void {
             if (high <= 0) {
                 this.clear();
@@ -1060,7 +1060,7 @@ namespace Monkeybot_RGB灯 {
                 for (let i = 0; i < n; ++i) {
                     if (i <= v) {
                         let b = i * 255 / n1;
-                        this.setPixelColor(i, Monkeybot_RGB灯.rgb(b, 0, 255 - b));
+                        this.setPixelColor(i, monkeybot_RGB灯.rgb(b, 0, 255 - b));
                     }
                     else this.setPixelColor(i, 0);
                 }
@@ -1071,13 +1071,13 @@ namespace Monkeybot_RGB灯 {
         /**
          * Set LED to a given color (range 0-255 for r, g, b). 
          * You need to call ``show`` to make the changes visible.
-         * @param pixeloffset position of the Monkeybot_RGB灯 in the strip
+         * @param pixeloffset position of the monkeybot_RGB灯 in the strip
          * @param rgb RGB color of the LED
          */
         //% blockId="monkeybot_set_pixel_color" block="%strip|set pixel color at %pixeloffset|to %rgb=neopixel_colors" 
         //% blockGap=8
         //% weight=80
-        //% parts="Monkeybot_RGB灯" advanced=true
+        //% parts="monkeybot_RGB灯" advanced=true
         setPixelColor(pixeloffset: number, rgb: number): void {
             this.setPixelRGB(pixeloffset, rgb);
         }
@@ -1090,7 +1090,7 @@ namespace Monkeybot_RGB灯 {
         //% blockId="monkeybot_set_pixel_white" block="%strip|set pixel white LED at %pixeloffset|to %white" 
         //% blockGap=8
         //% weight=80
-        //% parts="Monkeybot_RGB灯" advanced=true
+        //% parts="monkeybot_RGB灯" advanced=true
         setPixelWhiteLED(pixeloffset: number, white: number): void {
             if (this._mode === NeoPixelMode.RGBW) {
                 this.setPixelW(pixeloffset, white);
@@ -1102,7 +1102,7 @@ namespace Monkeybot_RGB灯 {
          */
         //% blockId="monkeybot_show" block="%strip|show" blockGap=8
         //% weight=79
-        //% parts="Monkeybot_RGB灯"
+        //% parts="monkeybot_RGB灯"
         show() {
             sendBuffer(this.buf, this.pin);
         }
@@ -1113,7 +1113,7 @@ namespace Monkeybot_RGB灯 {
          */
         //% blockId="monkeybot_clear" block="%strip|clear"
         //% weight=76
-        //% parts="Monkeybot_RGB灯"
+        //% parts="monkeybot_RGB灯"
         clear(): void {
             const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
             this.buf.fill(0, this.start * stride, this._length * stride);
@@ -1134,7 +1134,7 @@ namespace Monkeybot_RGB灯 {
          */
         //% blockId="monkeybot_set_brightness" block="%strip|set brightness %brightness" blockGap=8
         //% weight=59
-        //% parts="Monkeybot_RGB灯" advanced=true
+        //% parts="monkeybot_RGB灯" advanced=true
         setBrightness(brightness: number): void {
             this.brightness = brightness & 0xff;
         }
@@ -1144,7 +1144,7 @@ namespace Monkeybot_RGB灯 {
          **/
         //% blockId="monkeybot_each_brightness" block="%strip|ease brightness" blockGap=8
         //% weight=58
-        //% parts="Monkeybot_RGB灯" advanced=true
+        //% parts="monkeybot_RGB灯" advanced=true
         easeBrightness(): void {
             const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
             const br = this.brightness;
@@ -1172,7 +1172,7 @@ namespace Monkeybot_RGB灯 {
          */
         //% weight=89
         //% blockId="monkeybot_range" block="%strip|range from %start|with %length|leds"
-        //% parts="Monkeybot_RGB灯"
+        //% parts="monkeybot_RGB灯"
         range(start: number, length: number): Strip {
             let strip = new Strip();
             strip.buf = this.buf;
@@ -1190,7 +1190,7 @@ namespace Monkeybot_RGB灯 {
          */
         //% blockId="monkeybot_shift" block="%strip|shift pixels by %offset" blockGap=8
         //% weight=40
-        //% parts="Monkeybot_RGB灯"
+        //% parts="monkeybot_RGB灯"
         shift(offset: number = 1): void {
             const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
             this.buf.shift(-offset * stride, this.start * stride, this._length * stride)
@@ -1203,17 +1203,17 @@ namespace Monkeybot_RGB灯 {
          */
         //% blockId="monkeybot_rotate" block="%strip|rotate pixels by %offset" blockGap=8
         //% weight=39
-        //% parts="Monkeybot_RGB灯"
+        //% parts="monkeybot_RGB灯"
         rotate(offset: number = 1): void {
             const stride = this._mode === NeoPixelMode.RGBW ? 4 : 3;
             this.buf.rotate(-offset * stride, this.start * stride, this._length * stride)
         }
 
         /**
-         * Set the pin where the Monkeybot_RGB灯 is connected, defaults to P0.
+         * Set the pin where the monkeybot_RGB灯 is connected, defaults to P0.
          */
         //% weight=10
-        //% parts="Monkeybot_RGB灯" advanced=true
+        //% parts="monkeybot_RGB灯" advanced=true
         setPin(pin: DigitalPin): void {
             this.pin = pin;
             pins.digitalWritePin(this.pin, 0);
@@ -1235,7 +1235,7 @@ namespace Monkeybot_RGB灯 {
                     p += this.buf[i + j];
                 }
             }
-            return this.length() / 2 /* 0.5mA per Monkeybot_RGB灯 */
+            return this.length() / 2 /* 0.5mA per monkeybot_RGB灯 */
                 + (p * 433) / 10000; /* rought approximation */
         }
 
@@ -1322,13 +1322,13 @@ namespace Monkeybot_RGB灯 {
     }
 
     /**
-     * Create a new Monkeybot_RGB灯 driver for `numleds` LEDs.
-     * @param pin the pin where the Monkeybot_RGB灯 is connected.
+     * Create a new monkeybot_RGB灯 driver for `numleds` LEDs.
+     * @param pin the pin where the monkeybot_RGB灯 is connected.
      * @param numleds number of leds in the strip, eg: 24,30,60,64
      */
-    //% blockId="monkeybot_create" block="Monkeybot_RGB灯 at pin %pin|with %numleds|leds as %mode"
+    //% blockId="monkeybot_create" block="monkeybot_RGB灯 at pin %pin|with %numleds|leds as %mode"
     //% weight=90 blockGap=8
-    //% parts="Monkeybot_RGB灯"
+    //% parts="monkeybot_RGB灯"
     //% trackArgs=0,2
     export function create(pin: DigitalPin, numleds: number, mode: NeoPixelMode): Strip {
         let strip = new Strip();
@@ -1475,7 +1475,7 @@ namespace Monkeybot_RGB灯 {
      *  is 1, the color midway between the start and end color will be returned.
      * @param direction the direction around the color wheel the hue should be interpolated.
      */
-    //% parts="Monkeybot_RGB灯"
+    //% parts="monkeybot_RGB灯"
     //% advanced=true
     export function interpolateHSL(startColor: HSL, endColor: HSL, steps: number, direction: HueInterpolationDirection): HSL[] {
         if (steps <= 0)
