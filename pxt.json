@@ -9,8 +9,6 @@
     },
     "description": "",
     "files": [
-        "main.blocks",
-        "main.ts",
         "README.md",
 		"monkey_bot.ts",
 		"shims.d.ts",
