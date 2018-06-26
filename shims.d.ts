@@ -10,14 +10,14 @@ declare namespace MonkeybotIR {
      * button pushed.
      */
     //% blockId=ir_received_left_event
-    //% block="on |%btn| button pressed" shim=MonkeybotIR::onPressEvent
+    //% block="当|%btn|按钮按下" shim=MonkeybotIR::onPressEvent
     function onPressEvent(btn: RemoteButton, body: () => void): void;
 
     /**
      * initialises local variablesssss
      */
     //% blockId=ir_init
-    //% block="connect ir receiver to %pin" shim=MonkeybotIR::init
+    //% block="连接遥控接收到引脚%pin" shim=MonkeybotIR::init
     function init(pin: Pins): void;
 }
 

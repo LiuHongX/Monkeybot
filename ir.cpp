@@ -66,7 +66,7 @@ namespace MonkeybotIR {
   * button pushed.
   */
   //% blockId=ir_received_left_event
-  //% block="on |%btn| button pressed"
+  //% block="当|%btn|按钮按下"
   void onPressEvent(RemoteButton btn, Action body) {
     //if(actions.find(btn) == actions.end()) actions[btn] = new vector();
     actions[btn].push_back(body);
@@ -96,7 +96,7 @@ namespace MonkeybotIR {
   * initialises local variablesssss
   */
   //% blockId=ir_init
-  //% block="connect ir receiver to %pin"
+  //% block="连接遥控接收到引脚%pin"
   void init(Pins pin){
     rx = new ReceiverIR((PinName)pin);
     tsb.start(); //interrupt timer for debounce
