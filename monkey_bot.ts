@@ -52,15 +52,15 @@ namespace monkeybot_小车类 {
 	
 	export enum servoDirection {
         //% blockId="Forward" block="正前方"
-        forward = 85,
+        forward = 80,
         //% blockId="LeftForward" block="左前方"
-        leftForward = 135,
+        leftForward = 125,
 		//% blockId="RightForward" block="右前方"
-        rightForward = 45,
+        rightForward = 35,
 		//% blockId="Left" block="左方"
-        left = 180,
+        left = 170,
 		//% blockId="Right" block="右方"
-        right = 0,
+        right = -10,
     }
 	
 	//% blockId=monkeybot_car_reset block="小车复位"
@@ -192,6 +192,68 @@ namespace monkeybot_小车类 {
 		} else {
 			return false
 		}
+    }
+	
+	//% blockId=monkeybot_line_sensor block="巡线传感器（-1偏左，0正中，1偏右）"
+    //% weight=88
+	export function Line_Sensor(): number {
+        if (pins.analogReadPin(AnalogPin.P0) < 100 && pins.analogReadPin(AnalogPin.P1) > 100) {
+    		return -1
+		} else {
+			if (pins.analogReadPin(AnalogPin.P2) < 100 && pins.analogReadPin(AnalogPin.P1) > 100) {
+    			return 1
+			} else {
+    			return 0
+			}
+		}
+    }
+	
+	//% blockId=monkeybot_car_run block="小车前进"
+    //% weight=87
+	export function Car_Run(): void {
+        monkeybot_电机类.MotorRunDual(
+			monkeybot_电机类.Motors.M1B,
+			150,
+			monkeybot_电机类.Motors.M2A,
+			150
+			)
+		basic.pause(2000)
+		monkeybot_电机类.MotorStopAll()
+    }
+	
+	//% blockId=monkeybot_car_back block="小车后退"
+    //% weight=86
+	export function Car_Back(): void {
+        monkeybot_电机类.MotorRunDual(
+			monkeybot_电机类.Motors.M1B,
+			-150,
+			monkeybot_电机类.Motors.M2A,
+			-150
+			)
+		basic.pause(2000)
+		monkeybot_电机类.MotorStopAll()
+    }
+	
+	//% blockId=monkeybot_car_turn_left block="小车左转45°"
+    //% weight=85
+	export function Car_Turn_Left(): void {
+        basic.pause(100)
+		monkeybot_电机类.MotorStopAll()
+		monkeybot_电机类.MotorRun(monkeybot_电机类.Motors.M2A, 80)
+		basic.pause(500)
+		monkeybot_电机类.MotorStopAll()
+		basic.pause(100)
+    }
+	
+	//% blockId=monkeybot_car_turn_right block="小车右转45°"
+    //% weight=84
+	export function Car_Turn_Right(): void {
+        basic.pause(100)
+		monkeybot_电机类.MotorStopAll()
+		monkeybot_电机类.MotorRun(monkeybot_电机类.Motors.M1B, 80)
+		basic.pause(500)
+		monkeybot_电机类.MotorStopAll()
+		basic.pause(100)
     }
 	
 }
