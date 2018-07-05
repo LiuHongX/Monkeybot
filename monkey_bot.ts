@@ -45,49 +45,43 @@ namespace monkeybot_小车类 {
 
         switch (value) {
             case rgbColor.Red: {
-                setPwm(13, 0, 4095);
-                setPwm(14, 0, 0);
-                setPwm(15, 0, 0);
+                monkeybot_电机类.RGB_Car_Big2(monkeybot_电机类.enColor.Red)
                 break;
             }
             case rgbColor.Green: {
-                setPwm(13, 0, 0);
-                setPwm(14, 0, 4095);
-                setPwm(15, 0, 0);
+                monkeybot_电机类.RGB_Car_Big2(monkeybot_电机类.enColor.Green)
                 break;
             }
             case rgbColor.Blue: {
-                setPwm(13, 0, 0);
-                setPwm(14, 0, 0);
-                setPwm(15, 0, 4095);
+                monkeybot_电机类.RGB_Car_Big2(monkeybot_电机类.enColor.Blue)
                 break;
             }
             case rgbColor.White: {
-                setPwm(13, 0, 4095);
-                setPwm(14, 0, 4095);
-                setPwm(15, 0, 4095);
+                monkeybot_电机类.RGB_Car_Big2(monkeybot_电机类.enColor.White)
                 break;
             }
             case rgbColor.Cyan: {
-                setPwm(13, 0, 0);
-                setPwm(14, 0, 4095);
-                setPwm(15, 0, 4095);
+                monkeybot_电机类.RGB_Car_Big2(monkeybot_电机类.enColor.Cyan)
                 break;
             }
             case rgbColor.Pinkish: {
-                setPwm(13, 0, 4095);
-                setPwm(14, 0, 0);
-                setPwm(15, 0, 4095);
+                monkeybot_电机类.RGB_Car_Big2(monkeybot_电机类.enColor.Pinkish)
                 break;
             }
             case rgbColor.Yellow: {
-                setPwm(13, 0, 4095);
-                setPwm(14, 0, 4095);
-                setPwm(15, 0, 0);
+                monkeybot_电机类.RGB_Car_Big2(monkeybot_电机类.enColor.Yellow)
                 break;
             }
         }
     }
+	
+	//% blockId=monkeybot_rgb_light_close block="大灯关闭"
+    //% weight=98
+	export function RGB_Light_Close(): void {
+		monkeybot_电机类.RGB_Car_Big2(monkeybot_电机类.enColor.OFF)
+	}
+	
+	
 }
 
 //% color="#C814B8" weight=25 icon="\uf1d4"
