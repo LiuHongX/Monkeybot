@@ -52,15 +52,15 @@ namespace monkeybot_小车类 {
 	
 	export enum servoDirection {
         //% blockId="Forward" block="正前方"
-        85,
+        forward = 85,
         //% blockId="LeftForward" block="左前方"
-        135,
+        leftForward = 135,
 		//% blockId="RightForward" block="右前方"
-        45,
+        rightForward = 45,
 		//% blockId="Left" block="左方"
-        180,
+        left = 180,
 		//% blockId="Right" block="右方"
-        0,
+        right = 0,
     }
 	
 	//% blockId=monkeybot_car_reset block="小车复位"
