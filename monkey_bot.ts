@@ -50,6 +50,19 @@ namespace monkeybot_小车类 {
 		power_down
 	}
 	
+	export enum servoDirection {
+        //% blockId="Forward" block="正前方"
+        85,
+        //% blockId="Forward" block="左前方"
+        135,
+		//% blockId="Forward" block="右前方"
+        45,
+		//% blockId="Forward" block="左方"
+        180,
+		//% blockId="Forward" block="右方"
+        0,
+    }
+	
 	//% blockId=monkeybot_car_reset block="小车复位"
     //% weight=100
     export function CarReset(): void {
@@ -170,7 +183,16 @@ namespace monkeybot_小车类 {
 		}
 	}
 	
-	
+	//% blockId=monkeybot_servo_obstacle block="检测小车 %value有无障碍"
+    //% weight=89
+	export function Servo_Obstacle(value: servoDirection): boolean {
+        monkeybot_电机类.Servo_Car(monkeybot_电机类.enServo.S1, value)
+		if (monkeybot_输入类.Ultrasonic_Car() < 10) {
+			return true;
+		} else {
+			return false;
+		}
+    }
 	
 }
 
