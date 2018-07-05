@@ -183,7 +183,7 @@ namespace monkeybot_小车类 {
 		}
 	}
 	
-	//% blockId=monkeybot_servo_obstacle block="检测小车 %value|有无障碍"
+	//% blockId=monkeybot_servo_obstacle block="检测小车 %value"
     //% weight=89
 	//% blockGap=10
 	//% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
