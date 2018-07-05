@@ -25,6 +25,31 @@ namespace monkeybot_小车类 {
 
     }
 	
+	export enum musicItem {
+
+		dadadum = 0,
+		entertainer,
+		prelude,
+		ode,
+		nyan,
+		ringtone,
+		funk,
+		blues,
+
+		birthday,
+		wedding,
+		funereal,
+		punchline,
+		baddy,
+		chase,
+		ba_ding,
+		wawawawaa,
+		jump_up,
+		jump_down,
+		power_up,
+		power_down
+	}
+	
 	//% blockId=monkeybot_car_reset block="小车复位"
     //% weight=100
     export function CarReset(): void {
@@ -111,6 +136,40 @@ namespace monkeybot_小车类 {
 		ledLight.clear()
 		ledLight.show()
     }
+	
+	
+	
+	
+	
+	
+	
+	//% blockId=monkeybot_music_play block="小车播放音乐 %index"
+    //% weight=90
+	export function Music_Play(index: musicItem): void {
+		switch (index) {
+			case musicItem.dadadum: music.beginMelody(music.builtInMelody(Melodies.Dadadadum), MelodyOptions.Once); break;
+			case musicItem.birthday: music.beginMelody(music.builtInMelody(Melodies.Birthday), MelodyOptions.Once); break;
+			case musicItem.entertainer: music.beginMelody(music.builtInMelody(Melodies.Entertainer), MelodyOptions.Once); break;
+			case musicItem.prelude: music.beginMelody(music.builtInMelody(Melodies.Prelude), MelodyOptions.Once); break;
+			case musicItem.ode: music.beginMelody(music.builtInMelody(Melodies.Ode), MelodyOptions.Once); break;
+			case musicItem.nyan: music.beginMelody(music.builtInMelody(Melodies.Nyan), MelodyOptions.Once); break;
+			case musicItem.ringtone: music.beginMelody(music.builtInMelody(Melodies.Ringtone), MelodyOptions.Once); break;
+			case musicItem.funk: music.beginMelody(music.builtInMelody(Melodies.Funk), MelodyOptions.Once); break;
+			case musicItem.blues: music.beginMelody(music.builtInMelody(Melodies.Blues), MelodyOptions.Once); break;
+			case musicItem.wedding: music.beginMelody(music.builtInMelody(Melodies.Wedding), MelodyOptions.Once); break;
+			case musicItem.funereal: music.beginMelody(music.builtInMelody(Melodies.Funeral), MelodyOptions.Once); break;
+			case musicItem.punchline: music.beginMelody(music.builtInMelody(Melodies.Punchline), MelodyOptions.Once); break;
+			case musicItem.baddy: music.beginMelody(music.builtInMelody(Melodies.Baddy), MelodyOptions.Once); break;
+			case musicItem.chase: music.beginMelody(music.builtInMelody(Melodies.Chase), MelodyOptions.Once); break;
+			case musicItem.ba_ding: music.beginMelody(music.builtInMelody(Melodies.BaDing), MelodyOptions.Once); break;
+			case musicItem.wawawawaa: music.beginMelody(music.builtInMelody(Melodies.Wawawawaa), MelodyOptions.Once); break;
+			case musicItem.jump_up: music.beginMelody(music.builtInMelody(Melodies.JumpUp), MelodyOptions.Once); break;
+			case musicItem.jump_down: music.beginMelody(music.builtInMelody(Melodies.JumpDown), MelodyOptions.Once); break;
+			case musicItem.power_up: music.beginMelody(music.builtInMelody(Melodies.PowerUp), MelodyOptions.Once); break;
+			case musicItem.power_down: music.beginMelody(music.builtInMelody(Melodies.PowerDown), MelodyOptions.Once); break;
+		}
+	}
+	
 	
 	
 }
