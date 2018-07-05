@@ -10,15 +10,7 @@ namespace monkeybot_小车类 {
 	//% blockId=monkeybot_car_reset block="小车复位"
     //% weight=100
     export function CarReset(): void {
-        let led2: monkeybot_RGB灯.Strip = null
-		basic.showIcon(IconNames.Heart)
-		monkeybot_显示类.MatrixClear()
-		monkeybot_电机类.RGB_Car_Big2(monkeybot_电机类.enColor.OFF)
-		monkeybot_电机类.Servo_Car(monkeybot_电机类.enServo.S1, 85)
-		monkeybot_电机类.MotorStopAll()
-		MonkeybotIR.init(Pins.P8)
-		led2 = monkeybot_RGB灯.create(DigitalPin.P16, 12, monkeybot_RGB灯.NeoPixelMode.RGB)
-		led2.clear()
+        
     }
 }
 
