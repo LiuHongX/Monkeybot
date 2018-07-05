@@ -185,12 +185,14 @@ namespace monkeybot_小车类 {
 	
 	//% blockId=monkeybot_servo_obstacle block="检测小车 %value|有无障碍"
     //% weight=89
+	//% blockGap=10
+	//% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
 	export function Servo_Obstacle(value: servoDirection): boolean {
         monkeybot_电机类.Servo_Car(monkeybot_电机类.enServo.S1, value)
 		if (monkeybot_输入类.Ultrasonic_Car() < 10) {
-			return true;
+			return true
 		} else {
-			return false;
+			return false
 		}
     }
 	
