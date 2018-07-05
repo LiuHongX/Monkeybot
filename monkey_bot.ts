@@ -103,6 +103,15 @@ namespace monkeybot_小车类 {
 		ledLight.show()
     }
 	
+	//% blockId=monkeybot_led_light_close block="灯带关闭"
+    //% weight=95
+	export function LED_Light_Close(): void {
+		let ledLight: monkeybot_RGB灯.Strip = null
+		ledLight= monkeybot_RGB灯.create(DigitalPin.P16, 12, monkeybot_RGB灯.NeoPixelMode.RGB)
+		ledLight.clear()
+		ledLight.show()
+    }
+	
 	
 }
 
