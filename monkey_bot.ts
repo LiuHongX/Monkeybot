@@ -183,7 +183,7 @@ namespace monkeybot_小车类 {
 		}
 	}
 	
-	//% blockId=monkeybot_servo_obstacle block="检测小车 %value有无障碍"
+	//% blockId=monkeybot_servo_obstacle block="检测小车 %value|有无障碍"
     //% weight=89
 	export function Servo_Obstacle(value: servoDirection): boolean {
         monkeybot_电机类.Servo_Car(monkeybot_电机类.enServo.S1, value)
