@@ -7,6 +7,24 @@ load dependency
 
 //% color="#87CEEB" weight=4 icon="\uf1b6"
 namespace monkeybot_小车类 {
+	export enum rgbColor {
+        //% blockId="Red" block="红色"
+        Red,
+        //% blockId="Yellow" block="黄色"
+        Yellow,
+        //% blockId="Green" block="绿色"
+        Green,
+        //% blockId="Cyan" block="青色"
+        Cyan,
+        //% blockId="Blue" block="蓝色"
+        Blue,
+        //% blockId="Pinkish" block="紫"
+        Pinkish,
+        //% blockId="White" block="白色"
+        White
+
+    }
+	
 	//% blockId=monkeybot_car_reset block="小车复位"
     //% weight=100
     export function CarReset(): void {
@@ -19,6 +37,56 @@ namespace monkeybot_小车类 {
 		MonkeybotIR.init(Pins.P8)
 		rgbLight= monkeybot_RGB灯.create(DigitalPin.P16, 12, monkeybot_RGB灯.NeoPixelMode.RGB)
 		rgbLight.clear()
+    }
+	
+	//% blockId=monkeybot_rgb_light block="大灯开启 %value"
+    //% weight=99
+	export function RGB_Light(value: rgbColor): void {
+
+        switch (value) {
+            case rgbColor.Red: {
+                setPwm(13, 0, 4095);
+                setPwm(14, 0, 0);
+                setPwm(15, 0, 0);
+                break;
+            }
+            case rgbColor.Green: {
+                setPwm(13, 0, 0);
+                setPwm(14, 0, 4095);
+                setPwm(15, 0, 0);
+                break;
+            }
+            case rgbColor.Blue: {
+                setPwm(13, 0, 0);
+                setPwm(14, 0, 0);
+                setPwm(15, 0, 4095);
+                break;
+            }
+            case rgbColor.White: {
+                setPwm(13, 0, 4095);
+                setPwm(14, 0, 4095);
+                setPwm(15, 0, 4095);
+                break;
+            }
+            case rgbColor.Cyan: {
+                setPwm(13, 0, 0);
+                setPwm(14, 0, 4095);
+                setPwm(15, 0, 4095);
+                break;
+            }
+            case rgbColor.Pinkish: {
+                setPwm(13, 0, 4095);
+                setPwm(14, 0, 0);
+                setPwm(15, 0, 4095);
+                break;
+            }
+            case rgbColor.Yellow: {
+                setPwm(13, 0, 4095);
+                setPwm(14, 0, 4095);
+                setPwm(15, 0, 0);
+                break;
+            }
+        }
     }
 }
 
