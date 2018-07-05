@@ -81,6 +81,28 @@ namespace monkeybot_小车类 {
 		monkeybot_电机类.RGB_Car_Big2(monkeybot_电机类.enColor.OFF)
 	}
 	
+	//% blockId=monkeybot_led_light block="灯带打开 %value"
+    //% weight=97
+	export function LED_Light(value: monkeybot_RGB灯.NeoPixelColors): void {
+		let ledLight: monkeybot_RGB灯.Strip = null
+		ledLight= monkeybot_RGB灯.create(DigitalPin.P16, 12, monkeybot_RGB灯.NeoPixelMode.RGB)
+		ledLight.clear()
+		ledLight.setBrightness(50)
+        ledLight.showColor(monkeybot_RGB灯.colors(value))
+		ledLight.show()
+    }
+	
+	//% blockId=monkeybot_led_light_rainbow block="灯带打开（彩虹灯）"
+    //% weight=96
+	export function LED_Light_Rainbow(): void {
+		let ledLight: monkeybot_RGB灯.Strip = null
+		ledLight= monkeybot_RGB灯.create(DigitalPin.P16, 12, monkeybot_RGB灯.NeoPixelMode.RGB)
+		ledLight.clear()
+		ledLight.setBrightness(50)
+        ledLight.showRainbow(1, 360)
+		ledLight.show()
+    }
+	
 	
 }
 
