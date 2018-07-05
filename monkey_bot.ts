@@ -5,6 +5,10 @@ load dependency
 "mbit": "file:../pxt-mbit"
 */
 
+//% color="#87CEEB" weight=4 icon="\uf1b6"
+namespace monkeybot_小车类 {
+	
+}
 
 //% color="#C814B8" weight=25 icon="\uf1d4"
 namespace monkeybot_显示类 {
