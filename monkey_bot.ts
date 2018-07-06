@@ -187,6 +187,7 @@ namespace monkeybot_小车类 {
     //% weight=89
 	export function Servo_Obstacle(value: servoDirection): boolean {
         monkeybot_电机类.Servo_Car(monkeybot_电机类.enServo.S1, value)
+		basic.pause(1000)
 		if (monkeybot_输入类.Ultrasonic_Car() < 10) {
 			return true
 		} else {
