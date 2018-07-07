@@ -15,7 +15,6 @@
 	"monkeybot_电机类.RGB_Car_Big2|block": "小车RGB探照灯|选择车灯颜色 %value",
 	
 
-    "monkeybot_电机类.RGB_Car_Program|block": "七彩流水灯",
 	"monkeybot_电机类.Music_Car|block": "小车音乐播放|%index",
 	"monkeybot_电机类.Line_Sensor|block": "巡线传感器|位置 %direct|检测到 %value",
 	"monkeybot_电机类.Avoid_Sensor|block": "避障传感器|检测到 %value",

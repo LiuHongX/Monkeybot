@@ -982,18 +982,7 @@ namespace monkeybot_电机类 {
         setPwm(15, 0, B);
 
     }
-
-	//% blockId=monkeybot_RGB_Car_Program block="RGB_Car_Program"
-    //% weight=99
-    //% blockGap=10
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function RGB_Car_Program(): monkeybot_RGB灯.Strip {
-         
-        if (!yahStrip) {
-            yahStrip = monkeybot_RGB灯.create(DigitalPin.P16, 3, monkeybot_RGB灯.NeoPixelMode.RGB);
-        }
-        return yahStrip;  
-    }
+	
 
     //% blockId=monkeybot_Music_Car block="Music_Car|%index"
     //% weight=97
