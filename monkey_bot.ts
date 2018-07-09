@@ -988,10 +988,10 @@ namespace monkeybot_电机类 {
     //% weight=99
     //% blockGap=10
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
-    export function RGB_Car_Program(): neopixel.Strip {
+    export function RGB_Car_Program(): monkeybot_RGB灯.Strip {
          
         if (!yahStrip) {
-            yahStrip = neopixel.create(DigitalPin.P16, 12, NeoPixelMode.RGB);
+            yahStrip = monkeybot_RGB灯.create(DigitalPin.P16, 12, monkeybot_RGB灯.NeoPixelMode.RGB);
         }
         return yahStrip;  
     }
