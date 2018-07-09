@@ -984,6 +984,18 @@ namespace monkeybot_电机类 {
     }
 	
 
+	//% blockId=monkeybot_RGB_Car_Program block="RGB_Car_Program"
+    //% weight=99
+    //% blockGap=10
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    export function RGB_Car_Program(): neopixel.Strip {
+         
+        if (!yahStrip) {
+            yahStrip = neopixel.create(DigitalPin.P16, 12, NeoPixelMode.RGB);
+        }
+        return yahStrip;  
+    }
+	
     //% blockId=monkeybot_Music_Car block="Music_Car|%index"
     //% weight=97
     //% blockGap=10
