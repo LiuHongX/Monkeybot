@@ -5,6 +5,10 @@
 using namespace pxt;
 typedef vector<Action> vA;
 
+
+//% color=50 weight=19
+//% icon="\uf1eb"
+namespace MonkeybotIR {
 enum class Pins{
   P0=  3,
   P1=  2,
@@ -49,11 +53,7 @@ enum class RemoteButton {
 	  NUM7 = 0x18,
 	  NUM8 = 0x19,
 	  NUM9 = 0x1A
-};
-
-//% color=50 weight=19
-//% icon="\uf1eb"
-namespace MonkeybotIR { 
+};	
   map<RemoteButton, vA> actions;
   map<RemoteButton, uint32_t> lastact;
   Timer tsb; 

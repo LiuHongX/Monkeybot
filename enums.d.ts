@@ -1,4 +1,5 @@
 // Auto-generated. Do not edit.
+declare namespace MonkeybotIR {
 
 
     declare const enum Pins {
@@ -47,7 +48,6 @@
     NUM8 = 0x19,
     NUM9 = 0x1A,
     }
-declare namespace MonkeybotIR {
 }
 
 // Auto-generated. Do not edit. Really.
