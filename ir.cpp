@@ -52,7 +52,7 @@ enum class RemoteButton {
 };
 //% color=50 weight=19
 //% icon="\uf1eb"
-namespace MonkeybotIR {
+namespace MonkeybotIR_C {
 	
   map<RemoteButton, vA> actions;
   map<RemoteButton, uint32_t> lastact;
