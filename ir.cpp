@@ -53,7 +53,6 @@ enum class RemoteButton {
 //% color=50 weight=19
 //% icon="\uf1eb"
 namespace MonkeybotIR {
-export class IR{	
   map<RemoteButton, vA> actions;
   map<RemoteButton, uint32_t> lastact;
   Timer tsb; 
@@ -102,5 +101,4 @@ export class IR{
     tsb.start(); //interrupt timer for debounce
     create_fiber(monitorIR);
   }
-}
 }
