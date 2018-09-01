@@ -13,7 +13,7 @@
 		"monkey_bot.ts",
 		"shims.d.ts",
         "enums.d.ts",
-        "ir.cpp",
+        "MonkeybotIR.cpp",
         "ReceiverIR.cpp",
         "ReceiverIR.h",
         "RemoteIR.h",
